@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Scanner;
+
 public class TicTacToe {
     private char[][] board;
     private char currentPlayer;
@@ -41,6 +43,16 @@ public class TicTacToe {
 
         System.out.print("Spieler " + currentPlayer + ", Spalte eingeben (0-2): ");
         int col = scanner.nextInt();
+
+        if (row < 0 || row > 2 || col < 0 || col > 2) {
+            System.out.println("Ungültige Eingabe. Bitte Zahlen von 0 bis 2 verwenden.");
+            return;
+        }
+
+        if (board[row][col] != '-') {
+            System.out.println("Dieses Feld ist bereits belegt.");
+            return;
+        }
 
         board[row][col] = currentPlayer;
     }
