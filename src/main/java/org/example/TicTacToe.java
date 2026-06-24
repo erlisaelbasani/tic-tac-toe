@@ -26,6 +26,39 @@ public class TicTacToe {
         return true;
     }
 
+    public void switchCurrentPlayer() {
+        if (currentPlayer == player1) {
+            currentPlayer = player2;
+        } else {
+            currentPlayer = player1;
+        }
+    }
+
+    public boolean hasWinner() {
+        char[][] c = board.getCells();
+        char m = currentPlayer.getMarker();
+
+        for (int i = 0; i < 3; i++) {
+            if (c[i][0] == m && c[i][1] == m && c[i][2] == m) {
+                return true;
+            }
+
+            if (c[0][i] == m && c[1][i] == m && c[2][i] == m) {
+                return true;
+            }
+        }
+
+        if (c[0][0] == m && c[1][1] == m && c[2][2] == m) {
+            return true;
+        }
+
+        return c[0][2] == m && c[1][1] == m && c[2][0] == m;
+    }
+
+    public boolean isDraw() {
+        return board.isFull() && !hasWinner();
+    }
+
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
