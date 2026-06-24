@@ -1,5 +1,8 @@
 package org.example;
 
+
+import java.util.Scanner;
+
 public class TicTacToe {
     private Player player1;
     private Player player2;
@@ -11,6 +14,59 @@ public class TicTacToe {
         player2 = new Player('O');
         currentPlayer = player1;
         board = new Board();
+    }
+
+    public void start() {
+        Scanner scanner = new Scanner(System.in);
+        boolean playAgain = true;
+
+        while (playAgain) {
+            while (true) {
+                System.out.println("Current Player: " + currentPlayer.getMarker());
+                board.print();
+
+                int row;
+                int column;
+
+                while (true) {
+                    System.out.print("row (0-2): ");
+                    row = scanner.nextInt();
+
+                    System.out.print("column (0-2): ");
+                    column = scanner.nextInt();
+
+                    if (!makeMove(row, column)) {
+                        System.out.println("Ungültiger Zug. Bitte erneut versuchen.");
+                        continue;
+                    }
+
+                    break;
+                }
+
+                if (hasWinner()) {
+                    board.print();
+                    System.out.println("Player " + currentPlayer.getMarker() + " wins!");
+                    break;
+                }
+
+                if (isDraw()) {
+                    board.print();
+                    System.out.println("Draw!");
+                    break;
+                }
+
+                switchCurrentPlayer();
+            }
+
+            System.out.print("Play again? (y/n): ");
+            String answer = scanner.next();
+
+            if (answer.equalsIgnoreCase("y")) {
+                resetGame();
+            } else {
+                playAgain = false;
+            }
+        }
     }
 
     public boolean makeMove(int row, int column) {
@@ -57,6 +113,11 @@ public class TicTacToe {
 
     public boolean isDraw() {
         return board.isFull() && !hasWinner();
+    }
+
+    public void resetGame() {
+        board.clear();
+        currentPlayer = player1;
     }
 
     public Player getCurrentPlayer() {
