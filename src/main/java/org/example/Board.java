@@ -1,49 +1,53 @@
 package org.example;
 
 public class Board {
-    private char[][] cells;
+    private char[][] cells = new char[3][3];
 
     public Board() {
-        cells = new char[3][3];
-        clear();
+        this.clear();
     }
 
     public boolean isCellEmpty(int row, int column) {
-        return cells[row][column] == ' ';
+        return this.cells[row][column] == ' ';
     }
 
     public void place(int row, int column, char marker) {
-        cells[row][column] = marker;
+        this.cells[row][column] = marker;
     }
 
     public boolean isFull() {
-        for (int row = 0; row < 3; row++) {
-            for (int column = 0; column < 3; column++) {
-                if (cells[row][column] == ' ') {
+        for(int i = 0; i < 3; ++i) {
+            for(int j = 0; j < 3; ++j) {
+                if (this.cells[i][j] == ' ') {
                     return false;
                 }
             }
         }
+
         return true;
     }
 
     public void clear() {
-        for (int row = 0; row < 3; row++) {
-            for (int column = 0; column < 3; column++) {
-                cells[row][column] = ' ';
+        for(int i = 0; i < 3; ++i) {
+            for(int j = 0; j < 3; ++j) {
+                this.cells[i][j] = ' ';
             }
         }
+
     }
 
     public void print() {
         System.out.println("▁▁▁▁▁▁");
-        for (int row = 0; row < 3; row++) {
-            System.out.println("|" + cells[row][0] + "|" + cells[row][1] + "|" + cells[row][2] + "|");
+
+        for(int i = 0; i < 3; ++i) {
+            char var10001 = this.cells[i][0];
+            System.out.println("|" + var10001 + "|" + this.cells[i][1] + "|" + this.cells[i][2] + "|");
         }
+
         System.out.println("▔▔▔▔▔▔");
     }
 
     public char[][] getCells() {
-        return cells;
+        return this.cells;
     }
 }
